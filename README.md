@@ -2,6 +2,8 @@
 
 FORMA is a personal workout-tracking web app for logging Home, Gym, and Outdoor sessions, planning a weekly workout routine, reviewing progress, and exporting workout data. It uses a browser-based interface with a small Python server and a local SQLite database.
 
+https://prottoynishan11.github.io/forma/
+
 **Theme accent:** `#0f568a`
 
 > **Status:** Local, single-user application. This repository contains the app source code. It is not a hosted website, and it cannot run on GitHub Pages because it needs a Python backend and a SQLite database.
