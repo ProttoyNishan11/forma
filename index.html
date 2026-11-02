@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f568a">
+<title>FORMA — Personal Fitness Dashboard</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="loading">
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">ƒ</div><div><div class="brand-name">FORMA</div><div class="brand-sub">PERSONAL PERFORMANCE</div></div></div>
+  <div class="nav-label">Workspace</div>
+  <nav class="nav" id="side-nav">
+    <button class="active" data-page="dashboard"><span class="nav-icon">▦</span>Dashboard</button>
+    <button data-page="log"><span class="nav-icon">＋</span>Log a workout</button>
+    <button data-page="schedule"><span class="nav-icon">▦</span>Workout schedule</button>
+    <button data-page="history"><span class="nav-icon">◷</span>Workout history</button>
+    <button data-page="library"><span class="nav-icon">⌘</span>Exercise library</button>
+    <button data-page="progress"><span class="nav-icon">⌁</span>Progress & stats</button>
+    <button data-page="reports"><span class="nav-icon">▤</span>Reports & exports</button>
+  </nav>
+  <div class="nav-label">Personal</div>
+  <nav class="nav"><button data-page="settings"><span class="nav-icon">⚙</span>Settings & backup</button></nav>
+  <div class="sidebar-bottom"><div class="assistant-mini"><div class="ai-row"><span class="pulse"></span> FORM-AI ONLINE</div><p id="sidebar-quote">Small steps. Strong habits. Your progress is being recorded.</p></div><div class="profile-mini"><div class="avatar" id="side-avatar">A</div><div><div class="profile-name" id="side-name">Athlete</div><div class="profile-sub">Personal dashboard</div></div></div></div>
+</aside>
+<main class="main">
+<header class="topbar"><div><div class="eyebrow" id="page-eyebrow">YOUR TRAINING OVERVIEW</div><h1 id="page-title">Dashboard</h1></div><div class="top-actions"><div class="date-chip" id="today-chip"></div><button class="icon-button" title="Settings" data-page="settings">⚙</button><button class="btn btn-primary" data-action="quick-start" data-location="Home">＋ Log workout</button></div></header>
+<div id="main-content"></div>
+</main>
+</div>
+<nav class="mobile-nav" id="mobile-nav"><button class="active" data-page="dashboard"><span>▦</span><span>Home</span></button><button data-page="log"><span>＋</span><span>Log</span></button><button data-page="schedule"><span>▦</span><span>Plan</span></button><button data-page="history"><span>◷</span><span>History</span></button><button data-page="library"><span>⌘</span><span>Exercises</span></button><button data-page="progress"><span>⌁</span><span>Progress</span></button><button data-page="reports"><span>▤</span><span>Reports</span></button></nav>
+<div class="toast" id="toast" role="status" aria-live="polite"></div><div id="modal-root"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
