@@ -165,6 +165,29 @@ class StateStoreTests(unittest.TestCase):
         with self.assertRaises(InvalidState):
             self.db.save_state(state)
 
+    def test_membership_dates_are_validated(self):
+        state = sample_state()
+        state["settings"]["membershipStartDate"] = "2026-11-09"
+        state["settings"]["membershipEndDate"] = "2026-12-08"
+        self.db.save_state(state)
+
+        invalid = sample_state()
+        invalid["settings"]["membershipStartDate"] = "2026-11-09"
+        with self.assertRaises(InvalidState):
+            self.db.save_state(invalid)
+
+        invalid = sample_state()
+        invalid["settings"]["membershipStartDate"] = "2026-02-30"
+        invalid["settings"]["membershipEndDate"] = "2026-12-08"
+        with self.assertRaises(InvalidState):
+            self.db.save_state(invalid)
+
+        invalid = sample_state()
+        invalid["settings"]["membershipStartDate"] = "2026-12-08"
+        invalid["settings"]["membershipEndDate"] = "2026-11-09"
+        with self.assertRaises(InvalidState):
+            self.db.save_state(invalid)
+
     def test_fractional_reps_are_rejected(self):
         state = sample_state()
         state["sessions"][0]["exercises"][0]["sets"][0]["reps"] = "10.5"
