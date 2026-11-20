@@ -28,3 +28,22 @@ body.loading::after{content:"Loading your saved workout data…";position:fixed;
 @media(max-width:1000px){.week-schedule-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.week-day{min-height:110px}.routine-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.week-schedule-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.week-day{min-height:100px}.week-day:last-child:nth-child(odd){grid-column:1/-1}.today-routine{align-items:flex-start}.today-routine .btn{white-space:nowrap}.routine-day-checkboxes{grid-template-columns:repeat(4,minmax(0,1fr))}.routine-target-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.compact-session-fields{grid-template-columns:repeat(2,minmax(0,1fr))}.log-progress-top{gap:12px;align-items:stretch;flex-direction:column}.log-progress-top>div:first-child{min-width:0}.exercise-row-head{align-items:flex-start;flex-wrap:wrap}.exercise-main-text{min-width:calc(100% - 105px)}.exercise-status{margin-left:44px}.exercise-head-actions{margin-left:auto}.exercise-picker-panel{align-items:stretch;flex-direction:column}.routine-add-exercise-row{align-items:stretch;flex-direction:column}.routine-add-exercise-row .btn{width:100%}.routine-card-actions .btn:first-child{margin-right:0}.mobile-nav{overflow-x:auto;justify-content:flex-start}.mobile-nav button{flex:1 0 44px;min-width:44px}.today-plan-panel .panel-head{align-items:flex-start}}
 @media(max-width:420px){.routine-editor-modal{padding:17px}.routine-editor-modal .form-grid{grid-template-columns:1fr!important}.routine-target-fields{grid-template-columns:1fr 1fr!important}.routine-target-fields .span-all{grid-column:1/-1}.routine-card-actions .btn{flex:1}.routine-card-actions .btn:first-child{flex:1 1 100%}.today-routine{flex-wrap:wrap}.today-routine .btn{width:100%}.exercise-row{padding:11px}.exercise-head-actions{gap:4px}.exercise-head-actions .btn{padding:6px 7px}.set-labels,.set-row{grid-template-columns:24px minmax(0,1fr) minmax(0,1fr) 20px;gap:4px}.set-row input{font-size:10px;padding:8px 4px}.routine-day-option span{font-size:9px}.routine-day-checkboxes{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+
+/* Gym membership duration progress */
+.membership-panel{margin:0 0 21px;padding:17px 19px}
+.membership-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px}
+.membership-title{display:flex;align-items:center;gap:9px;font-size:14px;font-weight:750;letter-spacing:-.1px}
+.membership-symbol{color:var(--cyan);font-size:17px;line-height:1}
+.membership-percent{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
+.membership-track{height:10px;background:#263340;border:1px solid #334453;border-radius:999px;overflow:hidden}
+.membership-track span{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#0f568a,#56a9df);transition:width .45s ease}
+.membership-dates{display:flex;justify-content:space-between;gap:12px;margin-top:8px;color:#91a5b7;font-size:11px;font-weight:650;font-variant-numeric:tabular-nums}
+.membership-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px;color:#a8b8c6;font-size:11px}
+.membership-expired{color:#ff9ba0}
+.membership-panel .btn{padding:5px 9px;font-size:10px}
+.membership-panel .panel-sub{margin-top:3px}
+.membership-settings-panel .membership-form{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:13px}
+.membership-form-actions{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.membership-settings-panel .fine-print{margin:13px 0 0}
+@media(max-width:520px){.membership-settings-panel .membership-form{grid-template-columns:1fr}.membership-dates{font-size:10px}.membership-head{align-items:flex-start}.membership-panel .membership-foot{align-items:flex-start}.membership-form-actions .btn{flex:1}}
