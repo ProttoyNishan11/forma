@@ -49,3 +49,12 @@ The Schedule page supports editable weekly routines and import/export of JSON or
 1. Generate genuine downloadable PDF and `.xlsx` reports server-side, with separate Home/Gym/Outdoor and combined monthly summaries sourced from the database.
 2. Move routine records into dedicated normalized tables if future querying or reporting requires it, and add more end-to-end UI tests.
 3. Only then add cloud deployment, user authentication, HTTPS, shared database hosting, cross-device synchronization, and conflict handling.
+
+
+## Optional cross-device cloud sync
+
+The static GitHub Pages build can enable Firebase Cloud Sync without hosting the Python API. The browser uses Firebase Authentication with Google sign-in and the Firestore Web SDK. Data is stored per user under `users/{uid}/items/{itemId}`, with one document per workout, exercise, routine, weigh-in, profile settings object, and current draft. Firestore Security Rules restrict every document to the matching authenticated UID.
+
+The client listens to the user's items collection, stores a persistent Firestore cache where supported, and sends incremental document-level changes rather than replacing one large whole-app document. The first sign-in merges existing browser records with the cloud collection. Records with newer timestamped local edits are preferred during the initial merge; after that, unsynced local edits are overlaid on incoming remote snapshots. Concurrent edits to the same record remain last-write-wins, so avoid editing the same record on two devices simultaneously.
+
+The Firebase web configuration in `js/firebase-config.js` is intentionally public. Do not store service-account keys in the website repository. Cloud sync is optional until a Firebase project is created, Google sign-in is enabled, Firestore rules are published, and the project configuration is added. Setup steps are in `CLOUD_SETUP.md`.
