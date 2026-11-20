@@ -47,3 +47,14 @@ body.loading::after{content:"Loading your saved workout data…";position:fixed;
 .membership-form-actions{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
 .membership-settings-panel .fine-print{margin:13px 0 0}
 @media(max-width:520px){.membership-settings-panel .membership-form{grid-template-columns:1fr}.membership-dates{font-size:10px}.membership-head{align-items:flex-start}.membership-panel .membership-foot{align-items:flex-start}.membership-form-actions .btn{flex:1}}
+
+
+/* Firebase Cloud Sync controls */
+.cloud-sync-panel{padding:18px 20px}
+.cloud-status-copy{font-size:12px;line-height:1.65;color:#aab7c2;margin:4px 0 12px;overflow-wrap:anywhere}
+.cloud-account-info{font-size:11px;color:var(--cyan);margin:0 0 12px;overflow-wrap:anywhere}
+.cloud-actions{display:flex;gap:8px;flex-wrap:wrap}
+#cloud-auth-button:disabled{opacity:.65;cursor:not-allowed}
+.cloud-sync-panel .cloud-status-online{color:#9ee4c8;border-color:#236d55;background:#1a5a431c}
+.cloud-sync-panel .cloud-status-warning{color:#ffd18c;border-color:#76572b;background:#76572b20}
+@media(max-width:520px){.cloud-actions .btn{flex:1}}
