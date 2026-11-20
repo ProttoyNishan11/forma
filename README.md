@@ -169,3 +169,18 @@ Bug reports, feature ideas, and pull requests are welcome. When reporting a bug,
 ## License
 
 No license is included in this repository by default. Add a `LICENSE` file if you intend to specify how others may use, modify, or redistribute the project.
+
+
+## Optional free cloud synchronization
+
+FORMA can synchronize the same personal dataset between a laptop and iPhone using **Firebase Authentication (Google sign-in) + Cloud Firestore** while keeping GitHub Pages as the static host.
+
+1. Follow [CLOUD_SETUP.md](CLOUD_SETUP.md) to create a Firebase project on the Spark (no-cost) plan.
+2. Enable Google sign-in, add `prottoynishan11.github.io` to Firebase Authentication's authorized domains, and create a Firestore database.
+3. Publish the user-scoped rules from [firestore.rules](firestore.rules).
+4. Replace the placeholders in `js/firebase-config.js` with the Web App configuration from your own Firebase project.
+5. Open FORMA → **Settings & backup → Cloud sync** and sign in with the same Google account on each device.
+
+Workouts, exercises, routines, body-weight entries, settings and the in-progress draft are stored as separate documents under the signed-in user's UID. Firestore listeners provide remote updates, and its persistent browser cache queues local writes for reconnection. When you first sign in, FORMA merges local records with cloud records rather than replacing the existing dataset.
+
+**Important:** The Firebase Web App configuration is public by design; never commit service-account keys or Admin SDK credentials. Firestore Security Rules must remain restricted to the authenticated user's own UID. Cloud sync is optional and remains disabled until the Firebase config placeholders are replaced. Keep periodic JSON backups as an additional recovery option. See [CLOUD_SETUP.md](CLOUD_SETUP.md) for current Spark quotas, setup and troubleshooting.
