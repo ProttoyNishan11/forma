@@ -25,6 +25,9 @@ import { firebaseConfig } from './firebase-config.js';
   let saveTimer = null;
   let saveChain = Promise.resolve();
   let firebaseReady = false;
+  let statusLabel = 'Setup required';
+  let statusMessage = 'Cloud sync is ready in the code, but this Firebase project still needs its web configuration. Follow CLOUD_SETUP.md.';
+  let statusTone = 'warning';
 
   const bridge = () => window.FORMACloudBridge || null;
   const clone = value => JSON.parse(JSON.stringify(value));
@@ -38,6 +41,9 @@ import { firebaseConfig } from './firebase-config.js';
   const safeKey = value => encodeURIComponent(String(value)).replaceAll('.', '%2E');
 
   function setStatus(label, message, tone) {
+    statusLabel = label;
+    statusMessage = message;
+    statusTone = tone || '';
     const pill = document.getElementById('cloud-sync-status-pill');
     const copy = document.getElementById('cloud-sync-status');
     const top = document.getElementById('cloud-top-status');
@@ -51,6 +57,16 @@ import { firebaseConfig } from './firebase-config.js';
   }
 
   function refreshControls() {
+    const pill = document.getElementById('cloud-sync-status-pill');
+    const copy = document.getElementById('cloud-sync-status');
+    const top = document.getElementById('cloud-top-status');
+    if (pill) {
+      pill.textContent = statusLabel;
+      pill.classList.toggle('cloud-status-online', statusTone === 'online');
+      pill.classList.toggle('cloud-status-warning', statusTone === 'warning');
+    }
+    if (copy) copy.textContent = statusMessage;
+    if (top) top.textContent = '☁ ' + statusLabel;
     const signIn = document.getElementById('cloud-auth-button');
     const signOut = document.getElementById('cloud-signout-button');
     const account = document.getElementById('cloud-account-info');
@@ -199,6 +215,15 @@ import { firebaseConfig } from './firebase-config.js';
     return merged;
   }
 
+  function mapsEqual(left, right) {
+    if (left.size !== right.size) return false;
+    for (const [key, value] of left.entries()) {
+      const other = right.get(key);
+      if (!other || value.type !== other.type || !isSame(value.payload, other.payload)) return false;
+    }
+    return true;
+  }
+
   function documentReference(uid, id) {
     return window.FORMAFirebaseFirestore.doc(firestore, 'users', uid, 'items', id);
   }
@@ -324,7 +349,7 @@ import { firebaseConfig } from './firebase-config.js';
     const remote = stateFromSnapshot(snapshot);
     const local = api.getState();
     const merged = mergeRemoteWithLocalEdits(remote, local, lastSyncedState);
-    const hasLocalChanges = !isSame(stateToEntries(merged), stateToEntries(remote));
+    const hasLocalChanges = !mapsEqual(stateToEntries(merged), stateToEntries(remote));
 
     lastSyncedState = clone(remote);
     if (!isSame(merged, local)) {
