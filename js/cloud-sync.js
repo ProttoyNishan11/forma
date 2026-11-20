@@ -39,6 +39,7 @@ import { firebaseConfig } from './firebase-config.js';
   const isSame = (left, right) => stableStringify(left) === stableStringify(right);
   const validRecord = item => item && typeof item === 'object' && !Array.isArray(item) && item.id != null && String(item.id) !== '';
   const safeKey = value => encodeURIComponent(String(value)).replaceAll('.', '%2E');
+  const weightRecordKey = item => String(item.date) + '_' + String(item.recordedAt || item.weight || '');
 
   function setStatus(label, message, tone) {
     statusLabel = label;
@@ -115,7 +116,7 @@ import { firebaseConfig } from './firebase-config.js';
     });
     (Array.isArray(state.bodyWeightHistory) ? state.bodyWeightHistory : []).forEach(item => {
       if (item && typeof item.date === 'string' && item.date) {
-        add('weight_' + safeKey(item.date), 'weight', item);
+        add('weight_' + safeKey(weightRecordKey(item)), 'weight', item);
       }
     });
 
@@ -173,8 +174,8 @@ import { firebaseConfig } from './firebase-config.js';
       exercises: mergeLists(local.exercises, remote.exercises),
       routines: mergeLists(local.routines, remote.routines),
       bodyWeightHistory: mergeLists(
-        (local.bodyWeightHistory || []).map(item => ({ ...item, id: item.date })),
-        (remote.bodyWeightHistory || []).map(item => ({ ...item, id: item.date }))
+        (local.bodyWeightHistory || []).map(item => ({ ...item, id: weightRecordKey(item) })),
+        (remote.bodyWeightHistory || []).map(item => ({ ...item, id: weightRecordKey(item) }))
       ).map(({ id, ...item }) => item),
       settings: remote.settings && recordTime(remote.settings) >= recordTime(local.settings) ? { ...DEFAULT_SETTINGS, ...remote.settings } : { ...DEFAULT_SETTINGS, ...(local.settings || {}) },
       draft: remote.draft || local.draft || null
