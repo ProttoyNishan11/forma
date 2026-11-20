@@ -176,7 +176,7 @@ import { firebaseConfig } from './firebase-config.js';
         (local.bodyWeightHistory || []).map(item => ({ ...item, id: item.date })),
         (remote.bodyWeightHistory || []).map(item => ({ ...item, id: item.date }))
       ).map(({ id, ...item }) => item),
-      settings: remote.settings ? { ...DEFAULT_SETTINGS, ...remote.settings } : { ...DEFAULT_SETTINGS, ...(local.settings || {}) },
+      settings: remote.settings && recordTime(remote.settings) >= recordTime(local.settings) ? { ...DEFAULT_SETTINGS, ...remote.settings } : { ...DEFAULT_SETTINGS, ...(local.settings || {}) },
       draft: remote.draft || local.draft || null
     };
   }
