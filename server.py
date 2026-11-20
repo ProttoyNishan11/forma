@@ -180,6 +180,16 @@ def validate_state(state: Any) -> dict[str, Any]:
     _check_optional_number(settings.get("height", ""), "Profile height", 0.01, 300)
     if settings.get("sound") is not None and not isinstance(settings["sound"], bool):
         raise InvalidState("Profile sound setting must be true or false.")
+    membership_start = settings.get("membershipStartDate", "")
+    membership_end = settings.get("membershipEndDate", "")
+    if membership_start not in (None, ""):
+        _check_date(membership_start, "Membership start date")
+    if membership_end not in (None, ""):
+        _check_date(membership_end, "Membership expiry date")
+    if bool(membership_start) != bool(membership_end):
+        raise InvalidState("Both membership dates must be provided together.")
+    if membership_start and membership_end and date.fromisoformat(membership_end) <= date.fromisoformat(membership_start):
+        raise InvalidState("Membership expiry date must be after the start date.")
     draft = state.get("draft")
     if draft is not None:
         if not isinstance(draft, dict) or not isinstance(draft.get("exercises", []), list):
