@@ -30,11 +30,11 @@ assert.equal(minsBetween('2026-10-18','','10:00'), 0);
 
     def test_membership_progress_calculates_and_clamps_percentage(self):
         source = APP_JS.read_text(encoding="utf-8")
-        helpers = re.search(r"(const isISODate=.*?;\\s*const isClockTime=.*?;)", source, re.S)
-        membership = re.search(r"function membershipProgress\\(startDate,endDate,today=todayISO\\(\\)\\)\\{([\\s\\S]*?)\\n\\}", source)
+        helpers = re.search(r"(const isISODate=.*?;\s*const isClockTime=.*?;)", source, re.S)
+        membership = re.search(r"function membershipProgress\(startDate,endDate,today=todayISO\(\)\)\{([\s\S]*?)\n\}", source)
         self.assertIsNotNone(helpers, "Date validation helpers should remain available")
         self.assertIsNotNone(membership, "Membership progress should be a standalone helper")
-        script = helpers.group(1) + "\\n" + "const todayISO=()=> '2026-11-20';\\n" + "function membershipProgress(startDate,endDate,today=todayISO()){" + membership.group(1) + "\\n}\\n" + """
+        script = helpers.group(1) + "\n" + "const todayISO=()=> '2026-11-20';\n" + "function membershipProgress(startDate,endDate,today=todayISO()){" + membership.group(1) + "\n}\n" + """
 const assert = require('node:assert/strict');
 assert.equal(membershipProgress('2026-11-09','2026-12-08','2026-11-20').percentage, 38);
 assert.equal(membershipProgress('2026-11-09','2026-12-08','2026-11-01').percentage, 0);
